@@ -234,7 +234,7 @@ services:
       - STORAGE_TYPE=mem
       - KAFKA_BOOTSTRAP_SERVERS=kafka:9092
     ports:
-      - 9411:9411
+      - "9411:9411"
     depends_on:
       - kafka
     restart: on-failure

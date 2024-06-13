@@ -9,10 +9,15 @@ spring:
   cloud:
     # Event-driven messages Stream config
     stream:
-      defaultBinder: rabbit
+      # defaultBinder: rabbit
+      default-binder: rabbit
       default.contentType: application/json
       bindings:
         input:
+          destination: products
+          group: productsGroup
+          contentType: application/json
+        productConsumer-in-0:
           destination: products
           group: productsGroup
           consumer:
@@ -22,12 +27,19 @@ spring:
             backOffMultiplier: 2.0
       rabbit:
         bindings:
-          input.consumer:
+          #
+          productConsumer-in-0:
+          # input.consumer:
+            consumer:
               autoBindDlq: true
               republishToDlq: true
       kafka:
         bindings:
-          input.consumer.enableDlq: true
+          productConsumer-in-0:
+            consumer:
+              autoBindDlq: true
+              republishToDlp: true
+          # input.consumer.enableDlq: true
 
 server:
   port: 9081

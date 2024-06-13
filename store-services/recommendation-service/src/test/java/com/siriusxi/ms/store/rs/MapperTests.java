@@ -50,7 +50,7 @@ class MapperTests {
     List<RecommendationEntity> entityList = mapper.apiListToEntityList(apiList);
     assertEquals(apiList.size(), entityList.size());
 
-    RecommendationEntity entity = entityList.get(0);
+    RecommendationEntity entity = entityList.getFirst(); //get(0);
 
     assertEquals(api.getProductId(), entity.getProductId());
     assertEquals(api.getRecommendationId(), entity.getRecommendationId());
@@ -61,8 +61,8 @@ class MapperTests {
     List<Recommendation> api2List = mapper.entityListToApiList(entityList);
     assertEquals(apiList.size(), api2List.size());
 
-    Recommendation api2 = api2List.get(0);
-
+    //Recommendation api2 = api2List.get(0);
+    Recommendation api2 = api2List.getFirst();
     assertEquals(api.getProductId(), api2.getProductId());
     assertEquals(api.getRecommendationId(), api2.getRecommendationId());
     assertEquals(api.getAuthor(), api2.getAuthor());

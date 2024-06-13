@@ -1,17 +1,17 @@
 package com.siriusxi.ms.store.revs.api;
 
-import com.siriusxi.ms.store.api.core.product.ProductEndpoint;
+// import com.siriusxi.ms.store.api.core.product.ProductEndpoint;
 import com.siriusxi.ms.store.api.core.review.ReviewEndpoint;
 import com.siriusxi.ms.store.api.core.review.ReviewService;
 import com.siriusxi.ms.store.api.core.review.dto.Review;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
 /**
- * Class <code>ReviewController</code> is the implementation of the main Review Endpoint API
+ * Class <code>ReviewController</code> is the implementation of the main Review
+ * Endpoint API
  * definition.
  *
  * @see ReviewEndpoint
@@ -23,17 +23,17 @@ import reactor.core.publisher.Flux;
 @Log4j2
 public class ReviewController implements ReviewEndpoint {
 
-  /** Review service business logic interface. */
-  private final ReviewService reviewService;
+    /** Review service business logic interface. */
+    private final ReviewService reviewService;
 
-  @Autowired
-  public ReviewController(@Qualifier("ReviewServiceImpl") ReviewService reviewService) {
-    this.reviewService = reviewService;
-  }
+    public ReviewController(@Qualifier("ReviewServiceImpl") ReviewService reviewService) {
+        this.reviewService = reviewService;
+    }
 
-  /** {@inheritDoc} */
-  @Override
-  public Flux<Review> getReviews(int productId) {
-    return reviewService.getReviews(productId);
-  }
+    /** {@inheritDoc} */
+    @Override
+    public Flux<Review> getReviews(int productId) {
+        log.info("Logging from review controller");
+        return reviewService.getReviews(productId);
+    }
 }

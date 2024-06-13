@@ -18,25 +18,37 @@
     <packaging>jar</packaging>
 
     <properties>
-        <resilience4j.version>0.14.1</resilience4j.version>
+        <resilience4j.version>2.1.0</resilience4j.version>
+        <springdoc-openapi.version>2.3.0</springdoc-openapi.version>
     </properties>
 
     <dependencies>
         <!-- Start - API documentation dependencies -->
-        <dependency>
+        <!--dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-        </dependency>
+        </dependency-->
         <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${springdoc-openapi.version}</version>
+         </dependency>
+        <!--dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-spring-webflux</artifactId>
             <version>${springfox.swagger.version}</version>
-        </dependency>
+        </dependency-->
         <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
+            <version>${springdoc-openapi.version}</version>
+        </dependency>
+
+        <!--dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${springfox.swagger.version}</version>
-        </dependency>
+        </dependency-->
         <!-- End - API documentation dependencies -->
         <!-- Start - Security dependency -->
         <dependency>
@@ -55,7 +67,7 @@
         <!-- Start - Circuit Breaker & Retry support dependency -->
         <dependency>
             <groupId>io.github.resilience4j</groupId>
-            <artifactId>resilience4j-spring-boot2</artifactId>
+            <artifactId>resilience4j-spring-boot3</artifactId>
             <version>${resilience4j.version}</version>
         </dependency>
         <dependency>
@@ -72,6 +84,11 @@
             <groupId>io.github.resilience4j</groupId>
             <artifactId>resilience4j-micrometer</artifactId>
             <version>${resilience4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.retry</groupId>
+            <artifactId>spring-retry</artifactId>
+            <version>2.0.4</version>
         </dependency>
         <!-- End - Circuit Breaker & Retry support dependency -->
     </dependencies>

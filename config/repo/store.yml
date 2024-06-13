@@ -4,19 +4,22 @@ server:
 
 spring:
   cloud:
-    # Massaging provider configurations
+    # define function suppliers
+    function:
+      definition: storeProducer|recommendationsProducer|reviewsProducer
+    # Messaging provider configurations
     ## Event-driven messages Stream config
     stream:
       defaultBinder: rabbit
       default.contentType: application/json
       bindings:
-        output-products:
+        storeProducer-out-0:
           destination: products
-          producer.required-groups: auditGroup
-        output-recommendations:
+          producer.required-groups: auditGroup # please check
+        recommendationsProducer-out-0:
           destination: recommendations
           producer.required-groups: auditGroup
-        output-reviews:
+        reviewsProducer-out-0:
           destination: reviews
           producer.required-groups: auditGroup
 
@@ -77,7 +80,7 @@ api:
       description: Creates a composite product
       notes: |
         # Normal response
-        The composite product information posted to the API will be splitted up and stored as separate product-info, recommendation and review entities.
+        The composite product information posted to the API will be split up and stored as separate product-info, recommendation and review entities.
 
         # Expected error responses
         1. If a product with the same productId as specified in the posted information already exists,
@@ -87,7 +90,7 @@ api:
       description: Deletes a product composite
       notes: |
         # Normal response
-        Entities for product information, recommendations and reviews related to the specificed productId will be deleted.
+        Entities for product information, recommendations and reviews related to the specified productId will be deleted.
         The implementation of the delete method is idempotent, i.e. it can be called several times with the same response.
         This means that a delete request of a non existing product will return <b>200 Ok</b>.
 

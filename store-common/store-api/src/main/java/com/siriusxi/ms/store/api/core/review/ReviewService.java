@@ -3,8 +3,6 @@ package com.siriusxi.ms.store.api.core.review;
 import com.siriusxi.ms.store.api.core.review.dto.Review;
 import reactor.core.publisher.Flux;
 
-import java.util.List;
-
 /**
  * Interface that define the general service contract (methods) for the Review
  *

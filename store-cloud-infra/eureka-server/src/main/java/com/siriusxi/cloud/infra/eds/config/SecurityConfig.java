@@ -1,19 +1,25 @@
 package com.siriusxi.cloud.infra.eds.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.core.userdetails.User;
 
 @Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+@EnableWebSecurity
+public class SecurityConfig {
 
   private final String username;
   private final String password;
 
-  @Autowired
   public SecurityConfig(
       @Value("${app.eureka.user}") String username,
       @Value("${app.eureka.pass}") String password) {
@@ -21,23 +27,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     this.password = "{noop}".concat(password);
   }
 
-  @Override
-  public void configure(AuthenticationManagerBuilder auth) throws Exception {
-    auth.inMemoryAuthentication()
-            .withUser(username)
-            .password(password)
-            .authorities("USER");
+  @Bean
+  protected SecurityFilterChain webSecurityWebFilterChain(HttpSecurity http) throws Exception {
+      http
+          .csrf(csrf -> csrf.disable())
+          .authorizeHttpRequests(authz -> authz
+          // Allow actuator paths
+          .requestMatchers("/actuator/**").permitAll()
+          .anyRequest().authenticated())
+          .formLogin(Customizer.withDefaults())
+          .httpBasic(Customizer.withDefaults());
+      return http.build();
   }
 
-  @Override
-  protected void configure(HttpSecurity http) throws Exception {
-    http
-        // Disable CRCF to allow services to register themselves with Eureka
-        .csrf()
-          .disable()
-        .authorizeRequests()
-          .anyRequest().authenticated()
-          .and()
-          .httpBasic();
+  @Bean
+  public static PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
   }
+
+  @Bean
+    public InMemoryUserDetailsManager userDetailsService() {
+        UserDetails user = User.builder()
+                .username(username)
+                .password(passwordEncoder().encode(password))
+                .roles("USER")
+                .build();
+        return new InMemoryUserDetailsManager(user);
+    }
+
 }

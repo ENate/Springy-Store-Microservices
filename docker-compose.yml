@@ -185,7 +185,7 @@ services:
       - STORAGE_TYPE=mem
       - RABBIT_ADDRESSES=rabbitmq
     ports:
-      - 9411:9411
+      - "9411:9411"
     depends_on:
       - rabbitmq
     restart: on-failure

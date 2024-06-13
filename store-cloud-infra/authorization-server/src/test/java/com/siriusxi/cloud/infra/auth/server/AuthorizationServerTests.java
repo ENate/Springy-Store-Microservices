@@ -17,8 +17,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @since 5.0
  */
 @SpringBootTest(properties = {
-        "eureka.client.enabled: false",
-        "spring.cloud.config.enabled: false"})
+        "eureka.client.enabled= false",
+        "spring.cloud.config.enabled= false"})
 @AutoConfigureMockMvc
 class AuthorizationServerTests {
   @Autowired MockMvc mvc;

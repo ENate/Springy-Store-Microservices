@@ -103,8 +103,8 @@ class PersistenceTests {
 
     /*
       Update the entity using the second entity object.
-      This should fail since the second entity now holds a old version number,
-      i.e. a Optimistic Lock Error
+      This should fail since the second entity now holds an old version number,
+      i.e. an Optimistic Lock Error
     */
     try {
       entity2.setAuthor("amazon 2");

@@ -8,7 +8,7 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 
 @SpringBootTest(
     webEnvironment = RANDOM_PORT,
-    properties = {"spring.profiles.active: native"})
+    properties = {"spring.profiles.active= native"})
 class CentralizedConfigServerTests {
 
   @Test

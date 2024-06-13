@@ -28,30 +28,30 @@ import static org.springframework.http.MediaType.APPLICATION_JSON;
 @SpringBootTest(
     webEnvironment = RANDOM_PORT,
     /*
-     In this Spring integration test class,
-     configure TestSecurityConfig to override the
-     existing security configuration.
+    In this Spring integration test class,
+    configure TestSecurityConfig to override the
+    existing security configuration.
     */
     classes = {StoreServiceApplication.class, TestSecurityConfig.class},
     properties = {
-      "spring.main.allow-bean-definition-overriding: true",
-      "eureka.client.enabled: false",
-      "spring.cloud.config.enabled: false",
-      "server.error.include-message: always"
+        "spring.main.allow-bean-definition-overriding= true",
+        "eureka.client.enabled= false",
+        "spring.cloud.config.enabled= false",
+        "server.error.include-message= always"
     })
 class StoreServiceApplicationTests {
 
-  public static final String BASE_URL = "/store/api/v1/products/";
-  private static final int PRODUCT_ID_OK = 1;
-  private static final int PRODUCT_ID_NOT_FOUND = 2;
-  private static final int PRODUCT_ID_INVALID = 3;
+    public static final String BASE_URL = "/store/api/v1/products/";
+    private static final int PRODUCT_ID_OK = 1;
+    private static final int PRODUCT_ID_NOT_FOUND = 2;
+    private static final int PRODUCT_ID_INVALID = 3;
 
-  @Autowired private WebTestClient client;
+    @Autowired private WebTestClient client;
 
-  @MockBean private StoreIntegration storeIntegration;
+    @MockBean private StoreIntegration storeIntegration;
 
-  @BeforeEach
-  void setUp() {
+    @BeforeEach
+    void setUp() {
 
     when(storeIntegration.getProduct(eq(PRODUCT_ID_OK), anyInt(), anyInt()))
         .thenReturn(Mono.just(new Product(PRODUCT_ID_OK, "name", 1, "mock-address")));
@@ -73,10 +73,10 @@ class StoreServiceApplicationTests {
 
     when(storeIntegration.getProduct(eq(PRODUCT_ID_INVALID), anyInt(), anyInt()))
         .thenThrow(new InvalidInputException("INVALID: " + PRODUCT_ID_INVALID));
-  }
+    }
 
-  @Test
-  public void getProductById() {
+    @Test
+    public void getProductById() {
 
     getAndVerifyProduct(PRODUCT_ID_OK, OK)
         .jsonPath("$.productId")
@@ -85,38 +85,38 @@ class StoreServiceApplicationTests {
         .isEqualTo(1)
         .jsonPath("$.reviews.length()")
         .isEqualTo(1);
-  }
+    }
 
-  @Test
-  public void getProductNotFound() {
+    @Test
+    public void getProductNotFound() {
 
     getAndVerifyProduct(PRODUCT_ID_NOT_FOUND, NOT_FOUND)
         .jsonPath("$.path")
         .isEqualTo(BASE_URL + PRODUCT_ID_NOT_FOUND)
         .jsonPath("$.message")
         .isEqualTo("NOT FOUND: " + PRODUCT_ID_NOT_FOUND);
-  }
+    }
 
-  @Test
-  public void getProductInvalidInput() {
+    @Test
+    public void getProductInvalidInput() {
 
     getAndVerifyProduct(PRODUCT_ID_INVALID, UNPROCESSABLE_ENTITY)
         .jsonPath("$.path")
         .isEqualTo(BASE_URL + PRODUCT_ID_INVALID)
         .jsonPath("$.message")
         .isEqualTo("INVALID: " + PRODUCT_ID_INVALID);
-  }
+    }
 
-  private BodyContentSpec getAndVerifyProduct(int productId, HttpStatus expectedStatus) {
-    return client
-        .get()
-        .uri(BASE_URL + productId)
-        .accept(APPLICATION_JSON)
-        .exchange()
-        .expectStatus()
-        .isEqualTo(expectedStatus)
-        .expectHeader()
-        .contentType(APPLICATION_JSON)
-        .expectBody();
-  }
+    private BodyContentSpec getAndVerifyProduct(int productId, HttpStatus expectedStatus) {
+        return client
+            .get()
+            .uri(BASE_URL + productId)
+            .accept(APPLICATION_JSON)
+            .exchange()
+            .expectStatus()
+            .isEqualTo(expectedStatus)
+            .expectHeader()
+            .contentType(APPLICATION_JSON)
+            .expectBody();
+    }
 }
