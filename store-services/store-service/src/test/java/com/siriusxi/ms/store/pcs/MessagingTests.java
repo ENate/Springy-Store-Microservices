@@ -17,7 +17,6 @@ import org.springframework.cloud.stream.binder.test.OutputDestination;
 import org.springframework.cloud.stream.function.StreamBridge;
 // import org.springframework.cloud.stream.test.binder.MessageCollector;
 import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Mono;
@@ -26,10 +25,8 @@ import java.util.concurrent.BlockingQueue;
 
 import static com.siriusxi.ms.store.api.event.Event.Type.CREATE;
 import static com.siriusxi.ms.store.api.event.Event.Type.DELETE;
-import static com.siriusxi.ms.store.pcs.IsSameEvent.sameEventExceptCreatedAt;
 import static java.lang.String.valueOf;
 import static java.util.Collections.singletonList;
-import static org.hamcrest.MatcherAssert.assertThat;
 // import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;

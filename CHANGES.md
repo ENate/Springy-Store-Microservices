@@ -1,15 +1,15 @@
 ### Deprecated dependencies
 
 - Replaced all occurrences of springdoc for springfox (Open API)
-- Updated to spring boot 3.2.1
+- Updated to spring boot 3.3.0
 - Updated to spring cloud 2023.0.0 (removed all deprecated APIs)
 - Replaced spring cloud stream with functional style. 
-- Introduced StreamBridge in place of ```MessageChannel````interface.
+- Introduced StreamBridge in place of ```MessageChannel``` interface.
 
  ### Changes in Code
 
  - Replaced all existing WebSecurityConfigurer Adapters.
- - Removed all occurrences of ```javax.*``` with ```jakarta.*``` as required by boot3.
+ - Replaced all occurrences of ```javax.*``` with ```jakarta.*``` as required by the latest Springframework APIs.
  
  ### Structural changes
  - Added docker using ```jib-maven ``` build

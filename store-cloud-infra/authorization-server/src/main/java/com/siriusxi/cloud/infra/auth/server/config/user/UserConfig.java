@@ -24,7 +24,7 @@ class UserConfig {
     */
 
 	@Bean
-	public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
+	UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
 		UserDetails userDetails = User.builder()
 		.username("user")
 		.password(passwordEncoder.encode("myPassword"))
@@ -34,7 +34,7 @@ class UserConfig {
 	}
 
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 }
