@@ -27,7 +27,7 @@ public class MessageProcessor {
     // @StreamListener(target = Sink.INPUT) - deprecated
     // Use of functional style
     @Bean
-    public Consumer<Event<Integer, Review>> reviewConsumer() {
+    Consumer<Event<Integer, Review>> reviewConsumer() {
         return event -> {
 
             log.info("Process message created at {}...", event.getEventCreatedAt());

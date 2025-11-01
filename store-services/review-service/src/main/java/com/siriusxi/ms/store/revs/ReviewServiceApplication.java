@@ -24,7 +24,7 @@ public class ReviewServiceApplication {
   }
 
   @Bean
-  public CommandLineRunner runner() {
+  CommandLineRunner runner() {
     return r -> log.info("Review Microservice started successfully.");
   }
 }

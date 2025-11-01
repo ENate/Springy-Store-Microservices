@@ -1,6 +1,7 @@
 package com.siriusxi.ms.store.api.composite;
 
 import com.siriusxi.ms.store.api.composite.dto.ProductAggregate;
+
 import reactor.core.publisher.Mono;
 
 /**
@@ -53,4 +54,6 @@ public interface StoreService {
    * @return void
    */
   Mono<Void> deleteProduct(int id);
+  
+  // Mono<Void> createReview(Review bodyReview);
 }

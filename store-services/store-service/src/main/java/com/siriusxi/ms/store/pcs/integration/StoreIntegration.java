@@ -78,8 +78,15 @@ public class StoreIntegration implements ProductService, RecommendationService, 
         log.debug("Publishing a create event for a new product {}", body.toString());
         Event<Integer, Product> event = new Event<>(CREATE, body.getProductId(), body);
         // Sends created Product to the supplier binding name as topic
-        boolean sent = streamBridge.send(SUPPLIER_BINDING_NAME, event); // Send event returns boolean
-        return body;
+        boolean sent = streamBridge.send(SUPPLIER_BINDING_NAME, event);
+        // Send event returns boolean
+        if (sent) {
+			log.info("Message sent to", PRODUCT_ID_QUERY_PARAM);
+			return body;
+		} else {
+			log.info("Product not created");
+			return null;
+		}
     }
 
     @Retry(name = "product")
@@ -111,7 +118,7 @@ public class StoreIntegration implements ProductService, RecommendationService, 
          * .send(withPayload(new Event<>(DELETE, productId, null)).build());
          */
         Event<Integer, Product> event = new Event<>(CREATE, productId, null);
-        boolean deletedProduct = streamBridge.send(REVIEW_BINDING_NAME, event); // Returns boolean
+        boolean dProductSent = streamBridge.send(REVIEW_BINDING_NAME, event); // Returns boolean
         log.info("Review for Product with Id {} deleted", productId);
 
     }

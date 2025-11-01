@@ -22,7 +22,7 @@ public class GlobalConfiguration {
    * @return Jackson2ObjectMapperBuilderCustomizer builder
    */
   @Bean
-  public Jackson2ObjectMapperBuilderCustomizer jacksonCustomizer() {
+  Jackson2ObjectMapperBuilderCustomizer jacksonCustomizer() {
     return builder ->
         builder
             .visibility(

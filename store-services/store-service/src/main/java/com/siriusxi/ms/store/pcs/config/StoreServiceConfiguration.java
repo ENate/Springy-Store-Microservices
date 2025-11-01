@@ -50,7 +50,7 @@ public class StoreServiceConfiguration {
    * @return Docket swagger configuration
    */
   @Bean
-  public GroupedOpenApi publicApi() {
+  GroupedOpenApi publicApi() {
     return GroupedOpenApi.builder()
        .group("REST-APIs-store-public")
        .packagesToScan("com.siriusxi.ms.store.pcs.config")
@@ -64,7 +64,7 @@ public class StoreServiceConfiguration {
     Spring @Value annotations.
         */
   @Bean
-  public OpenAPI storeServiceOpenAPI() {
+  OpenAPI storeServiceOpenAPI() {
     return new OpenAPI()
        .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
        .components(new Components().addSecuritySchemes("Bearer Authentication", createAPIKeyScheme()))
@@ -83,7 +83,7 @@ public class StoreServiceConfiguration {
 
   @Bean
   @LoadBalanced
-  public WebClient.Builder loadBalancedWebClientBuilder() {
+  WebClient.Builder loadBalancedWebClientBuilder() {
     return WebClient.builder();
   }
 }

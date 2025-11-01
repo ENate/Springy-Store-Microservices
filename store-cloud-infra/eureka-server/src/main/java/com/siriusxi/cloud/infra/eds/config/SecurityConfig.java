@@ -41,12 +41,12 @@ public class SecurityConfig {
   }
 
   @Bean
-  public static PasswordEncoder passwordEncoder() {
+  static PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
 
   @Bean
-    public InMemoryUserDetailsManager userDetailsService() {
+    InMemoryUserDetailsManager userDetailsService() {
         UserDetails user = User.builder()
                 .username(username)
                 .password(passwordEncoder().encode(password))

@@ -12,17 +12,17 @@ public class StoreMessageProducer {
 	// Define the producer using functional style
 
 	@Bean
-	public Function<Product, Product> storeProducer() {
+	Function<Product, Product> storeProducer() {
 		return null;
 	}
 
 	@Bean
-	public Function<Product, Product> recommendationsProducer() {
+	Function<Product, Product> recommendationsProducer() {
 		return null;
 	}
 
 	@Bean
-	public Function<Product, Product> reviewsProducer() {
+	Function<Product, Product> reviewsProducer() {
 		return null;
 	}
 }

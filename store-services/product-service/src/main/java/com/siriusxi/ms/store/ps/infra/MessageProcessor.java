@@ -25,7 +25,7 @@ public class MessageProcessor {
 
     // Adopt functional style
     @Bean
-    public Consumer<Event<Integer, Product>> productConsumer() {
+    Consumer<Event<Integer, Product>> productConsumer() {
         return event -> {
             log.info("Process message created at {}...", event.getEventCreatedAt());
 

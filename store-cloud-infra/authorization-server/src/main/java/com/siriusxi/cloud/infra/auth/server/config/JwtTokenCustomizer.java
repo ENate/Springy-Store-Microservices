@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class JwtTokenCustomizer {
 
 	@Bean
-	public OAuth2TokenCustomizer<JwtEncodingContext> jwtTokenCustomizer() {
+	OAuth2TokenCustomizer<JwtEncodingContext> jwtTokenCustomizer() {
 		return (context) -> {
 			if (OAuth2TokenType.ACCESS_TOKEN.equals(context.getTokenType())) {
 				context.getClaims().claims((claims) -> {

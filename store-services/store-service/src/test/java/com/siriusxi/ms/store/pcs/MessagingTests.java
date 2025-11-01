@@ -59,6 +59,7 @@ class MessagingTests {
     @Autowired
     private StreamBridge bridge;
     private InputDestination input;
+    @Autowired
     private OutputDestination output;
 
     @BeforeEach

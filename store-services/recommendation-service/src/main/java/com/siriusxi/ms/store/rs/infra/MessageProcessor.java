@@ -25,7 +25,7 @@ public class MessageProcessor {
 
     // @StreamListener(target = Sink.INPUT)
     @Bean
-    public Consumer<Event<Integer, Recommendation>> recommendationConsumer() {
+    Consumer<Event<Integer, Recommendation>> recommendationConsumer() {
 
         {
             return event -> {

@@ -17,7 +17,7 @@ public class ReviewServiceConfiguration {
     Integer connectionPoolSize;
 
     @Bean
-    public Scheduler jdbcScheduler() {
+    Scheduler jdbcScheduler() {
         log.info("Creates a jdbcScheduler with connectionPoolSize = {}", connectionPoolSize);
         return Schedulers.fromExecutor(Executors.newFixedThreadPool(connectionPoolSize));
     }

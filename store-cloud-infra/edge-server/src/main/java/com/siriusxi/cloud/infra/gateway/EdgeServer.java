@@ -11,7 +11,7 @@ public class EdgeServer {
 
 	@Bean
 	@LoadBalanced
-	public WebClient.Builder loadBalancedWebClientBuilder() {
+	WebClient.Builder loadBalancedWebClientBuilder() {
 		return WebClient.builder();
 	}
 

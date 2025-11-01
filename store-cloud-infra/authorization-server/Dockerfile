@@ -2,7 +2,7 @@
 # ------------------------
 # Builder stage to prepare application for final image
 FROM openjdk:22-slim-buster as builder
-WORKDIR temp
+WORKDIR /temp
 
 # Fatjar location, but could be set to different location from command line
 ARG JAR_FILE=target/*.jar
@@ -15,8 +15,8 @@ RUN java -Djarmode=layertools -jar --enable-preview application.jar extract
 
 # Workaround to avoid Copy command failure when directory is not exists.
 RUN if test ! -d ./snapshot-dependencies; \
-then mkdir snapshot-dependencies && echo "Directory [snapshot-deps] created."; \
-else echo "Directory [snapshot-deps] already exists."; fi
+  then mkdir snapshot-dependencies && echo "Directory [snapshot-deps] created."; \
+  else echo "Directory [snapshot-deps] already exists."; fi
 
 #### End of builder stage
 
@@ -54,6 +54,6 @@ ARG JAVA_OPTS=""
 
 # Run the application with JVM configs if any
 ENTRYPOINT ["bash", "-c", \
-"java -server --enable-preview -XX:+UseContainerSupport -XX:+ShowCodeDetailsInExceptionMessages \
--XX:+AlwaysActAsServerClassMachine -XX:+UseG1GC -XX:+UseStringDeduplication ${JAVA_OPTS} \
-org.springframework.boot.loader.JarLauncher ${0} ${@}"]
+  "java -server --enable-preview -XX:+UseContainerSupport -XX:+ShowCodeDetailsInExceptionMessages \
+  -XX:+AlwaysActAsServerClassMachine -XX:+UseG1GC -XX:+UseStringDeduplication ${JAVA_OPTS} \
+  org.springframework.boot.loader.JarLauncher ${0} ${@}"]
